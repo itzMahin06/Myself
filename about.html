@@ -65,6 +65,7 @@
    </div>
 
 </div>
+
 <style>
 
 /* To change Header Subtitle */
@@ -201,10 +202,107 @@
 
 }
 
+/* Website Stats */
 
+ .statsHeading{
 
-    
+    text-align:center
 
+}
+
+ .statsWebsite{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    flex-direction:column;
+
+    margin:12px auto
+
+}
+
+ .statsCont{
+
+    background-color:#fff;
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:8px;
+
+    width:95%;
+
+    margin:12px auto;
+
+    box-shadow:0 5px 20px rgba(149,157,165,.2);
+
+    border-radius:20px
+
+}
+
+ .statsCont .stats{
+
+    height:80px;
+
+    width:200px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+     flex-direction:column;
+
+     margin:0 35px
+
+}
+
+ .statsCont .statsName{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    font-size:16px;
+
+    font-family:var(--fontBa)
+
+}
+
+ .statsCont .statsName svg{
+
+    margin-right:7px
+
+}
+
+ .statsCont .statsNumber{
+
+    font-family:var(--fontB);
+
+    font-size:30px;
+
+    margin-top:6px;
+
+    font-weight:normal
+
+}
+
+ .statsNumber.v >span::before{
+
+    content:attr(data-text)
+
+}
+
+ .drK .statsCont{
+
+    background-color:var(--darkBs);
+
+    box-shadow:0 5px 20px rgba(0,0,0,.2)
+
+}
 
  @media screen and (min-width:641px){
 
@@ -214,11 +312,25 @@
 
     }
 
-     
+     .statsWebsite{
 
-     
+        flex-direction:row
 
+    }
 
+     .statsCont{
+
+        max-width:46%;
+
+        margin:12px
+
+    }
+
+}
+
+/* To change Profile background */
+
+/* Light Mode */
 
  .aboutAuthor .aboutCont img{
 
