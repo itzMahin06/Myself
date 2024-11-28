@@ -11,7 +11,8 @@
   </div>
 
   <style>
-     * {
+      /* General Reset */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -24,6 +25,7 @@ body {
   align-items: center;
   min-height: 100vh;
   background-color: #f3f9f8;
+  padding: 10px; /* Adds spacing on smaller screens */
 }
 
 .profile-card {
@@ -32,7 +34,9 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
   padding: 20px;
-  max-width: 400px;
+  max-width: 100%;
+  width: 400px; /* Set a fixed width for larger screens */
+  margin: 0 auto;
 }
 
 .profile-image {
@@ -67,6 +71,24 @@ body {
 
 .profile-button:hover {
   background-color: #317575;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .profile-card {
+    padding: 15px;
+    width: 100%; /* Full width for smaller screens */
+  }
+
+  .profile-text p {
+    font-size: 14px; /* Slightly smaller font size for mobile */
+    line-height: 1.6;
+  }
+
+  .profile-button {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
 }
 
   </style>
