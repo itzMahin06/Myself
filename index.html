@@ -27,6 +27,120 @@
 
   <!--- custom css link -->
   <link rel="stylesheet" href="https://codewithsadee.github.io/vcard-personal-portfolio/assets/css/style.css"/>
+  <style>
+     .contact-container label {
+
+      display: block;
+
+      font-size: 14px;
+
+      font-weight: bold;
+
+      margin-bottom: 5px;
+
+      color: #555;
+
+      text-align: left;
+
+    }
+
+    .contact-container input,
+
+    .contact-container textarea {
+
+      width: 100%;
+
+      padding: 12px;
+
+      margin-bottom: 15px;
+
+      border: 1px solid #ddd;
+
+      border-radius: 8px;
+
+      font-size: 14px;
+
+      transition: border 0.3s ease;
+
+    }
+
+    .contact-container input:focus,
+
+    .contact-container textarea:focus {
+
+      border-color: #E32C2C;
+
+      outline: none;
+
+    }
+
+    .contact-container textarea {
+
+      resize: none;
+
+      height: 120px;
+
+    }
+
+    /* Submit Button Styling */
+
+    .contact-container button {
+
+      width: 100%;
+
+      padding: 12px;
+
+      background: linear-gradient(135deg, #E32C2C, #D02929);
+
+      color: white;
+
+      border: none;
+
+      border-radius: 8px;
+
+      font-size: 16px;
+
+      cursor: pointer;
+
+      transition: background 0.3s ease;
+
+    }
+
+    .contact-container button:hover {
+
+      background: linear-gradient(135deg, #D02929, #E32C2C);
+
+    }
+
+    /* Feedback Messages */
+
+    .success-message,
+
+    .error-message {
+
+      text-align: center;
+
+      font-size: 14px;
+
+      margin-top: 10px;
+
+      display: none;
+
+    }
+
+    .success-message {
+
+      color: #2ecc71;
+
+    }
+
+    .error-message {
+
+      color: #e74c3c;
+
+    }
+
+  </style>
 
   <!-- - google font link -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -139,13 +253,13 @@
           </li>
 
           <li class="social-item">
-            <a href="https://twitter.com/itzMahin06" class="social-link">
+            <a href="https://twitter.com/itzMahin_06" class="social-link">
               <ion-icon name="logo-twitter"></ion-icon>
             </a>
           </li>
 
           <li class="social-item">
-            <a href="https://instagram.com/itzMahin.2006" class="social-link">
+            <a href="https://instagram.com/_mahin728_" class="social-link">
               <ion-icon name="logo-instagram"></ion-icon>
             </a>
           </li>
@@ -499,7 +613,7 @@
 
               <h4 class="h4 timeline-item-title">Agricultural University College,Mymensingh</h4>
 
-              <span>2023 — Present</span>
+              <span>2023 — 2024</span>
 
               <p class="timeline-text">
                I am studying right now in class XI. Hope successfully passed my HSC from here.
@@ -1115,28 +1229,37 @@
 
         <section class="contact-form">
 
-          <h3 class="h3 form-title">Contact Form</h3>
-<form action="https://formsubmit.co/your@email.com" method="POST">
-     <input type="text" name="name" required>
-     <input type="email" name="email" required>
-     <button type="submit">Send</button>
-</form>
-          <form action="https://formsubmit.co/your@email.com" method="POST"> 
+          <form id="contactForm">
 
-            <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+      <label for="name">Your Name</label>
 
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-            </div>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required />
 
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+      <label for="email">Your Email</label>
 
-            <button class="form-submit" type="submit" disabled data-form-btn>
-              <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
-            </button>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
 
-          </form>
+      <label for="mobile">Your Mobile / Social Accounts Links</label>
+
+      <input type="text" id="mobile" name="mobile" placeholder="Enter your mobile number / Social Links" />
+
+      <label for="message">Your Message</label>
+
+      <textarea id="message" name="message" placeholder="Write your message" required></textarea>
+
+      <button type="submit">Send Message</button>
+
+    </form>
+
+    <!-- Feedback messages -->
+
+    <div class="success-message" id="successMessage">Message sent successfully!</div>
+
+    <div class="error-message" id="errorMessage">Failed to send message. Try again.</div>
+
+  </div>
+
+            
 
         </section>
 
@@ -1153,6 +1276,91 @@
 
   <!-- custom js link-->
   <script src="https://codewithsadee.github.io/vcard-personal-portfolio/assets/js/script.js"></script>
+  <script>
+    
+    // Telegram Bot Token and Chat ID
+
+    const botToken = "7103947496:AAHML7jmbVns5nGty2CgigFQUbHkBfUu9XM"; // Add your bot token
+
+    const chatId = "-1002095560628"; // Add your chat ID
+
+    document.querySelector("#contactForm").addEventListener("submit", function (e) {
+
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+
+      const email = document.getElementById("email").value;
+
+      const mobile = document.getElementById("mobile").value || "N/A";
+
+      const message = document.getElementById("message").value;
+
+      const telegramMessage = `
+
+        📝 New Message:
+        - 👨‍🦱 Name: ${name}
+        - ✉️ Email: ${email}
+        - 📞 Mobile / Social: ${mobile}
+        - 📲 Message: ${message}
+        [🚛 Sent From https://itzmahin06.github.io/Contact-Me]
+      `;
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+
+        method: "POST",
+
+        headers: { "Content-Type": "application/json" },
+
+        body: JSON.stringify({
+
+          chat_id: chatId,
+
+          text: telegramMessage,
+
+        }),
+
+      })
+
+        .then((response) => {
+
+          if (response.ok) {
+
+            document.getElementById("successMessage").style.display = "block";
+
+            document.getElementById("errorMessage").style.display = "none";
+            
+            // Redirect user to another page after successful form submission
+
+            setTimeout(function () {
+
+              window.location.href = "https://itzmahin06.github.io/Contact-Me";
+
+            }, 3000); // Redirect after 3 seconds
+
+          } else {
+
+            document.getElementById("successMessage").style.display = "none";
+
+            document.getElementById("errorMessage").style.display = "block";
+
+          }
+
+        })
+
+        .catch(() => {
+
+          document.getElementById("successMessage").style.display = "none";
+
+          document.getElementById("errorMessage").style.display = "block";
+
+        });
+
+      document.getElementById("contactForm").reset();
+
+    });
+
+  </script>
 
   <!-- ionicon link= -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
