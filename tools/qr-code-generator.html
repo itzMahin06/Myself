@@ -1,100 +1,117 @@
-<div class="separator" style="clear: both;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiqDmK_Up7en8SQZaht48ckt9ZliwxHdyXbxUEwyj7He1F8OYF6xNa2BFQemPbSFFU6f6WZ2uRMu6vokB4iswpMcZN5XHb-ju7bldS4XhkvtimdhfsQlT40PIDQcVovsP81_bN1YF_o-YCUBAazjtXjPa738boiBbVC44V2R7rrniaaR-IwdWJK9z4H2IyH/s1600/%E0%A6%9F%E0%A7%87%E0%A6%95%E0%A7%8D%E0%A6%B8%E0%A6%9F%20%E0%A6%9F%E0%A7%81%20%E0%A6%AA%E0%A6%BF%E0%A6%A1%E0%A6%BF%E0%A6%8F%E0%A6%AB%20%E0%A6%95%E0%A6%A8%E0%A6%AD%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%9F%E0%A6%BE%E0%A6%B0_20240526_233412_0000.png" style="display: block; padding: 1em 0px; text-align: center;"><img alt="" border="0" data-original-height="1152" data-original-width="2048" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiqDmK_Up7en8SQZaht48ckt9ZliwxHdyXbxUEwyj7He1F8OYF6xNa2BFQemPbSFFU6f6WZ2uRMu6vokB4iswpMcZN5XHb-ju7bldS4XhkvtimdhfsQlT40PIDQcVovsP81_bN1YF_o-YCUBAazjtXjPa738boiBbVC44V2R7rrniaaR-IwdWJK9z4H2IyH/s1600/%E0%A6%9F%E0%A7%87%E0%A6%95%E0%A7%8D%E0%A6%B8%E0%A6%9F%20%E0%A6%9F%E0%A7%81%20%E0%A6%AA%E0%A6%BF%E0%A6%A1%E0%A6%BF%E0%A6%8F%E0%A6%AB%20%E0%A6%95%E0%A6%A8%E0%A6%AD%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%9F%E0%A6%BE%E0%A6%B0_20240526_233412_0000.png" /></a></div>
+<div class="container">
+    <h1>QR Code Generator</h1>
+    <input type="text" id="textInput" placeholder="Enter text or URL" />
+    <button id="generateBtn">Generate QR Code</button>
+    <div id="qrCode"></div>
+    <button id="downloadBtn" style="display: none;">Download QR Code</button>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"> </script>
 
-<style>
-  
+  <style>
+    /* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
 .container {
-    text-align: center;
-    
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background: #fff;
+  color: #333;
+  border-radius: 12px;
+  padding: 20px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
 }
- 
 
+h1 {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #2575fc;
+}
 
 button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px;
+  background-color: #6a11cb;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3;
+  background-color: #2575fc;
 }
 
-#qrcode {
-    margin: 20px 0;
+#qrCode {
+  margin-top: 20px;
+  text-align: center;
 }
 
-.drk .container {   
-    background: #1e1e1e;
-    
-}
-  
- .drk input[type="text"] {
-    border: 1px solid #555;
-    ;
-    background-color: #333;
-    color: #f4f4f4;
-}
+  </style>
+  <script>
+    /* script.js */
+document.getElementById("generateBtn").addEventListener("click", function () {
+  const qrCodeContainer = document.getElementById("qrCode");
+  const textInput = document.getElementById("textInput").value;
+  const downloadButton = document.getElementById("downloadBtn");
 
-.drk input[type="text"]::placeholder {
-    color: #aaa;
-}
-  
-</style>
+  // Clear previous QR code
+  qrCodeContainer.innerHTML = "";
+  downloadButton.style.display = "none";
 
-<div class="container">
-        <h1>QR Code Generator</h1>
-        <input class="my-contact-form-input" id="text" type="text" rows="4"/>
-        <button onclick="generateQRCode()">Generate QR Code</button>
-        <div id="qrcode"></div>
-        <button id="download" onclick="downloadQRCode()">Download QR Code</button>
-    </div>
-<hr /> 
-<h2> QR Code Generator</h2>
-<div><div style="text-align: justify;">A QR code generator is a versatile tool that allows users to create Quick Response (QR) codes, which are two-dimensional barcodes that can store a wide range of information. These codes can be scanned using smartphones and other devices equipped with a QR code reader, instantly accessing the encoded data. QR codes have become ubiquitous due to their convenience and the growing prevalence of mobile technology, making QR code generators essential tools for both personal and professional use.</div><div style="text-align: justify;"><br /></div><div style="text-align: justify;">The functionality of a QR code generator is straightforward. Users input the data they want to encode into the QR code, such as a URL, text, contact information, or other types of data. The generator then processes this information and creates a QR code that can be downloaded and used in various formats. These QR codes can be printed, displayed on screens, or incorporated into digital media, allowing easy access to the embedded information when scanned.</div><div style="text-align: justify;"><br /></div><div style="text-align: justify;">QR code generators are widely used in marketing and advertising. Businesses can create QR codes that link to their websites, promotional offers, or social media profiles, providing a seamless way for customers to engage with their brand. By placing QR codes on flyers, posters, product packaging, and business cards, companies can enhance their marketing strategies and improve customer interaction. This not only simplifies the process for consumers but also provides a modern and tech-savvy image for the business.</div><div style="text-align: justify;"><br /></div><div style="text-align: justify;">In the realm of event management, QR code generators offer significant advantages. Organizers can generate QR codes for event tickets, attendee information, or venue directions, making the event registration and check-in process more efficient. Attendees can simply scan their QR codes at entry points, reducing wait times and improving the overall experience. Additionally, QR codes can be used within events for activities like networking, where participants can share contact information quickly and effortlessly.</div><div style="text-align: justify;"><br /></div><div style="text-align: justify;">Education and information dissemination are other areas where QR code generators prove beneficial. Educators can create QR codes that link to additional resources, assignments, or supplementary materials, enhancing the learning experience. Museums and galleries use QR codes to provide visitors with detailed information about exhibits, offering an interactive way to engage with the content. This can enrich the educational experience by providing instant access to a wealth of information.</div><div style="text-align: justify;"><br /></div><div style="text-align: justify;">QR code generators also play a crucial role in inventory management and logistics. Businesses can create QR codes to track products, manage inventory levels, and streamline the supply chain process. By scanning QR codes, employees can quickly access detailed information about products, reducing errors and increasing efficiency. This is particularly useful in large-scale operations where managing a vast array of items can be challenging.</div><div style="text-align: justify;"><br /></div><div style="text-align: justify;">Moreover, QR code generators support personal use in various practical ways. Individuals can create QR codes to share their contact information, Wi-Fi passwords, or location details with friends and family. This simplifies the process of sharing important information without the need for lengthy explanations or manual input.</div><div style="text-align: justify;"><br /></div><div style="text-align: justify;">Security and customization are important features of modern QR code generators. Users can often customize the appearance of their QR codes by changing colors, adding logos, or adjusting the design to match their branding. Some generators also offer options to create dynamic QR codes, which can be edited and tracked even after being printed. This provides valuable insights into how and when QR codes are scanned, allowing for better data analysis and campaign optimization.</div><div style="text-align: justify;"><br /></div><div style="text-align: justify;">In summary, a QR code generator is a powerful and flexible tool that enables the creation of QR codes for a variety of applications. Whether for marketing, event management, education, logistics, or personal use, these generators facilitate the efficient and effective sharing of information. By leveraging the simplicity and accessibility of QR codes, users can enhance communication, streamline processes, and improve overall engagement with their target audience.</div></div> 
+  if (textInput.trim() === "") {
+    alert("Please enter some text or a URL.");
+    return;
+  }
 
+  // Generate QR Code
+  const qrCode = new QRCode(qrCodeContainer, {
+    text: textInput,
+    width: 150,
+    height: 150,
+    colorDark: "#333333",
+    colorLight: "#ffffff",
+  });
 
+  // Allow time for QR Code to render before preparing download
+  setTimeout(() => {
+    const qrCanvas = qrCodeContainer.querySelector("canvas");
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-<script> 
-  function generateQRCode() {
-    var text = document.getElementById("text").value;
-    if (!text) {
-        alert("Please enter text to generate QR code");
-        return;
+    if (qrCanvas) {
+      const qrImage = qrCanvas.toDataURL("image/png");
+      downloadButton.style.display = "inline-block";
+      downloadButton.addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.href = qrImage;
+        link.download = "qr-code.png";
+        link.click();
+      });
     }
-    var qrcodeContainer = document.getElementById("qrcode");
-    qrcodeContainer.innerHTML = "";
-    var qrcode = new QRCode(qrcodeContainer, {
-        text: text,
-        width: 256,
-        height: 256
-    });
-}
-
-function downloadQRCode() {
-    var qrcodeContainer = document.getElementById("qrcode");
-    var canvas = qrcodeContainer.querySelector("canvas");
-    if (!canvas) {
-        alert("Please generate a QR code first");
-        return;
-    }
-    var pngUrl = canvas.toDataURL("image/png");
-    var downloadLink = document.createElement("a");
-    downloadLink.href = pngUrl;
-    downloadLink.download = "qrcode.png";
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-}
-
+  }, 300);
+});
 
   </script>
