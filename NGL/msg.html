@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Anonymous Message</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #6f86d6, #48c6ef);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+}
+
+h1 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  resize: none;
+  font-size: 1em;
+}
+
+button {
+  background: #48c6ef;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+button:hover {
+  background: #6f86d6;
+}
+
+.hidden {
+  display: none;
+}
+
+#response {
+  margin-top: 20px;
+  padding: 10px;
+  background: #48c6ef;
+  border-radius: 5px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Send Me an Anonymous Message</h1>
+    <p>Your message will be delivered to my Telegram anonymously!</p>
+    <form id="anonymousForm">
+      <textarea id="message" placeholder="Type your message here..." required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div id="response" class="hidden"></div>
+  </div>
+  <script>
+    document.getElementById('anonymousForm').addEventListener('submit', async function (event) {
+  event.preventDefault();
+
+  const message = document.getElementById('message').value;
+  const responseDiv = document.getElementById('response');
+
+  if (!message.trim()) {
+    alert('Please type a message!');
+    return;
+  }
+
+  try {
+    // Replace with your Telegram bot token and chat ID
+    const botToken = '7133583016:AAHkLZ8u-7Ig7srbMmwzb5O1kFpy3hnKpLY';
+    const chatId = '-1002020745172';
+    const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text: message })
+    });
+
+    const result = await response.json();
+
+    if (result.ok) {
+      responseDiv.textContent = 'Your message has been sent successfully!';
+      responseDiv.classList.remove('hidden');
+      document.getElementById('anonymousForm').reset();
+    } else {
+      responseDiv.textContent = 'Something went wrong. Please try again later.';
+      responseDiv.classList.remove('hidden');
+    }
+  } catch (error) {
+    responseDiv.textContent = 'Error sending message. Please try again later.';
+    responseDiv.classList.remove('hidden');
+  }
+});
+
+  </script>
+</body>
+</html>
